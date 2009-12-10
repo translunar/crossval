@@ -1,0 +1,12 @@
+<%- if comments.size > 0 -%>
+<ol class="comments">
+  <% comments.each do |comment| %>
+    <li class="comment">
+      <em><%=h comment.title %></em><br/>
+      <p><%=h comment.comment %></p>
+    </li>
+  <% end %>
+</ol>
+<%- else -%>
+<p><em>None found.</em></p>
+<%- end -%>

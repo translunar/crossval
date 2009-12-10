@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ExperimentAdapter</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ExperimentAdapter</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/experiment_adapter_rb.html">
+                app/models/experiment_adapter.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000128">bin_path</a>&nbsp;&nbsp;
+      <a href="#M000127">bin_root</a>&nbsp;&nbsp;
+      <a href="#M000130">calculate_aucs_path</a>&nbsp;&nbsp;
+      <a href="#M000132">error_log_path</a>&nbsp;&nbsp;
+      <a href="#M000131">log_path</a>&nbsp;&nbsp;
+      <a href="#M000124">new</a>&nbsp;&nbsp;
+      <a href="#M000125">new_experiment?</a>&nbsp;&nbsp;
+      <a href="#M000134">prepare_inputs</a>&nbsp;&nbsp;
+      <a href="#M000135">prepare_path</a>&nbsp;&nbsp;
+      <a href="#M000126">root</a>&nbsp;&nbsp;
+      <a href="#M000133">run</a>&nbsp;&nbsp;
+      <a href="#M000129">sort_path</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">experiment</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">new_experiment</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000124" class="method-detail">
+        <a name="M000124"></a>
+
+        <div class="method-heading">
+          <a href="#M000124" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(matrix_adapter, experiment)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000124-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000124-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 7</span>
+ 7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">matrix_adapter</span>, <span class="ruby-identifier">experiment</span>
+ 8:     <span class="ruby-ivar">@matrix_adapter</span> = <span class="ruby-identifier">matrix_adapter</span>
+ 9:     <span class="ruby-ivar">@experiment</span>     = <span class="ruby-identifier">experiment</span>
+10:     
+11:     <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Building experiment directory structure for matrix id #{matrix_adapter.matrix.id}, experiment #{experiment.id}.&quot;</span>)
+12:     
+13:     <span class="ruby-ivar">@new_experiment</span> = <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">prepare_path</span>
+14:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="#M000128" class="method-signature">
+          <span class="method-name">bin_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000128-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 29</span>
+29:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">bin_path</span>
+30:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">bin_root</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;phenomatrix&quot;</span>
+31:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="#M000127" class="method-signature">
+          <span class="method-name">bin_root</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000127-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000127-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 25</span>
+25:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">bin_root</span>
+26:     <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;bin/&quot;</span>
+27:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="#M000130" class="method-signature">
+          <span class="method-name">calculate_aucs_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000130-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000130-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 37</span>
+37:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calculate_aucs_path</span>
+38:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">bin_root</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;calculate_aucs.py&quot;</span>
+39:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000132" class="method-detail">
+        <a name="M000132"></a>
+
+        <div class="method-heading">
+          <a href="#M000132" class="method-signature">
+          <span class="method-name">error_log_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Path to the STDERR log file.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000132-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000132-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 47</span>
+47:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error_log_path</span>
+48:     <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;log/phenomatrix.error&quot;</span>
+49:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="#M000131" class="method-signature">
+          <span class="method-name">log_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Path to the STDOUT log file.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000131-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000131-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 42</span>
+42:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log_path</span>
+43:     <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;log/phenomatrix.log&quot;</span>
+44:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
+
+        <div class="method-heading">
+          <a href="#M000125" class="method-signature">
+          <span class="method-name">new_experiment?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000125-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000125-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 16</span>
+16:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_experiment?</span>
+17:     <span class="ruby-ivar">@new_experiment</span>
+18:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
+
+        <div class="method-heading">
+          <a href="#M000134" class="method-signature">
+          <span class="method-name">prepare_inputs</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Make sure input files exist. Return false if any directories have to be
+created. The predict_matrix inputs are taken care of by <a
+href="MatrixAdapter.html">MatrixAdapter</a>. This function needs to handle
+the source matrices, which it does by creating a simple <a
+href="MatrixAdapter.html">MatrixAdapter</a>.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000134-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000134-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 64</span>
+64:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare_inputs</span>
+65:     <span class="ruby-identifier">res</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">prepare_path</span>
+66: 
+67:     <span class="ruby-ivar">@experiment</span>.<span class="ruby-identifier">sources</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:matrix</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
+68: 
+69:       <span class="ruby-comment cmt"># Create a matrix adapter for each source that only creates genes.Sp and</span>
+70:       <span class="ruby-comment cmt"># genes_phenes.Sp files -- without any changing of directories.</span>
+71:       <span class="ruby-constant">MatrixAdapter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">source</span>.<span class="ruby-identifier">matrix</span>, <span class="ruby-identifier">:only_source_dir</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span>)
+72:     <span class="ruby-keyword kw">end</span>
+73: 
+74:     <span class="ruby-identifier">res</span>
+75:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
+
+        <div class="method-heading">
+          <a href="#M000126" class="method-signature">
+          <span class="method-name">root</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the directory for this matrix
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000126-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000126-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 21</span>
+21:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root</span>
+22:     <span class="ruby-ivar">@root</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@matrix_adapter</span>.<span class="ruby-identifier">root</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;experiment_#{@experiment.id}&quot;</span>
+23:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000133" class="method-detail">
+        <a name="M000133"></a>
+
+        <div class="method-heading">
+          <a href="#M000133" class="method-signature">
+          <span class="method-name">run</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Run the binary to perform the analysis, then process the results.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000133-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000133-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 52</span>
+52:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+53:     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span>) <span class="ruby-keyword kw">do</span>
+54:       <span class="ruby-ivar">@experiment</span>.<span class="ruby-identifier">run</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">bin_path</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">log_path</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">error_log_path</span>)
+55:       <span class="ruby-ivar">@experiment</span>.<span class="ruby-identifier">sort_results</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">sort_path</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">log_path</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">error_log_path</span>)
+56:       <span class="ruby-ivar">@experiment</span>.<span class="ruby-identifier">calculate_aucs</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">calculate_aucs_path</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">log_path</span>)
+57:     <span class="ruby-keyword kw">end</span>
+58:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="#M000129" class="method-signature">
+          <span class="method-name">sort_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000129-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000129-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 33</span>
+33:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sort_path</span>
+34:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">bin_root</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;sortall.pl&quot;</span>
+35:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
+
+        <div class="method-heading">
+          <a href="#M000135" class="method-signature">
+          <span class="method-name">prepare_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes sure directories exist. Returns false if anything has to be created.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000135-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000135-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/experiment_adapter.rb, line 79</span>
+79:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare_path</span>
+80:     <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@matrix_adapter</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">:prepare_path</span>
+81:     
+82:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span>)
+83:       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ExperimentAdapter prepare_path returning #{res.to_s}&quot;</span>
+84:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
+85:     <span class="ruby-keyword kw">else</span>
+86:       <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span>)
+87:       <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;ExperimentAdapter prepare_path returning false&quot;</span>
+88:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+89:     <span class="ruby-keyword kw">end</span>
+90:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

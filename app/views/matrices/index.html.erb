@@ -1,0 +1,31 @@
+
+<table>
+  <tr>
+    <th rowspan="2">Matrix</th>
+    <th>Column</th>
+    <th colspan="2">Rows</th>
+    <th>Cells</th>
+    <th colspan="2">Experiments</th>
+    <th/>
+    <th/>
+    <th/>
+    <th/>
+  </tr>
+  <tr><th>Species</th><th>Species</th><th>Total</th><th>Total</th><th>New</th><th>Total</th></tr>
+
+<% @matrices.each do |matrix| %>
+  <tr>
+    <td><%= h matrix.title %></td>
+    <td><%= h matrix.column_species %></td>
+    <td><%= h matrix.row_species %></td>
+    <td><%= matrix.number_of_rows %></td>
+    <td><%= matrix.number_of_unmasked_cells %></td>
+    <td><%= matrix.experiments.not_run.count %></td>
+    <td><%= matrix.experiments.count %></td>
+    <td><%= run_link_if_appropriate(matrix) %></td>
+    <td><%= link_to 'Show', matrix %></td>
+    <td><%= link_to 'View', view_matrix_path(matrix) %></td>
+    <td><%= link_to 'Delete', matrix_path(matrix), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

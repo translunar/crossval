@@ -1,0 +1,17 @@
+<div class="fixed">
+<%- @rows.each do |row| -%>
+  <%- @columns.each do |column| -%>
+    <%- if @cells.has_key?( [row,column].join(":") ) -%>
+      <%- if @cells[[row,column].join(":")].masked? -%>
+<span class="m">+</span>
+      <%- else -%>
+<span class="o">*</span>
+      <%- end -%>
+    <%- else -%>
+.
+    <%- end -%>
+  <%- end -%>
+<br/>
+<%- end -%>
+</div>
+There are <b><%= @matrix.number_of_empty_rows %></b> empty rows in the ancestor, of a total of <b><%= @matrix.number_of_rows %></b>.

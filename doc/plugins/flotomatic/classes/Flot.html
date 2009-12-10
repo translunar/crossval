@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Flot</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Flot</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/flotomatic/lib/flot_rb.html">
+                vendor/plugins/flotomatic/lib/flot.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2><a href="Flot.html">Flot</a></h2>
+<p>
+This class acts as a ruby wrapper for the flot javascript object. It is the
+class used in your model / controller to setup your data sets. It is then
+the object used in the <tt>&lt;%= flot_graph %&gt;</tt> helper method.
+</p>
+<p>
+It&#8216;s primary purpose is to contain the data that is used in the flot
+graph.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000003">filter</a>&nbsp;&nbsp;
+      <a href="#M000002">method_missing</a>&nbsp;&nbsp;
+      <a href="#M000001">new</a>&nbsp;&nbsp;
+      <a href="#M000005">series</a>&nbsp;&nbsp;
+      <a href="#M000004">series_for</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CANVAS_DEFAULT_HTML_OPTIONS</td>
+          <td>=</td>
+          <td class="context-item-value">{:style =&gt; &quot;height: 300px&quot;}</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">placeholder</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">canvas</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">placeholder=</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">canvas=</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">html_options</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">options</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">placeholder</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(canvas = nil, html_opts = {}) {|flot if block_given?| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The flot object can be initialized with either a block or a hash of
+options. The canvas and placeholder are used interchangeably and is
+provided as an optional first argument for convenience.
+</p>
+<p>
+Initialize with a hash:
+</p>
+<pre>
+ Flot.new('graph', :options =&gt; {:points =&gt; {:show =&gt; true}},
+    :data =&gt; [
+      {:label =&gt; 'Male', :data =&gt; [[1,0], [2,2]], [3,5]},
+      {:label =&gt; 'Female', :data =&gt; [[1,1], [2,3]], [3,4]}
+    ])
+</pre>
+<p>
+Initialize with a block:
+</p>
+<pre>
+  Flot.new('graph') do |f|
+    f.bars
+    f.grid :hoverable =&gt; true
+    f.selection :mode =&gt; &quot;xy&quot;
+    f.filter {|collection| collection.select {|j| j.entry_num &gt; 0}}
+    f.series_for(&quot;Stress&quot;, @journals, :x =&gt; :entry_num, :y =&gt; :stress_rating)
+    f.series_for(&quot;Hours of Sleep&quot;, @journals, :x =&gt; :entry_num, :y =&gt; :hours_of_sleep)
+    f.series_for(&quot;Restful Night?&quot;, @journals, :x =&gt; :entry_num, :y =&gt; lambda {|record| record.restful_night ? 5 : 0 }, :options =&gt; {:points =&gt; {:show =&gt; true}, :bars =&gt; {:show =&gt; false}})
+  end
+</pre>
+<p>
+Initialize (and then set data &amp; options later):
+</p>
+<pre>
+  f = Flot.new('graph')
+  f.line
+  f.series &quot;Red Line&quot;, [[0,5], [1,5], [2,5]], :color =&gt; '#f00'
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/flotomatic/lib/flot.rb, line 44</span>
+44:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">canvas</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">html_opts</span> = {})
+45:     <span class="ruby-comment cmt"># TODO: :tick_formatter =&gt; enum / hash or a mapping function, also :tick_formatter =&gt; {1 =&gt; &quot;Mon&quot;, 2 =&gt; &quot;Tue&quot;, ...} OR if an x or y is a string/sym consider auto conversion --&gt; a TotalFlot? or total_for(@collection, x, y)</span>
+46:     <span class="ruby-comment cmt"># TODO: define callbacks - set and clear selection, binding plotselected, etc.</span>
+47:     <span class="ruby-comment cmt"># TODO: custom functions for ticks and such</span>
+48: 
+49:     <span class="ruby-ivar">@collection_filter</span> = <span class="ruby-keyword kw">nil</span>
+50:     <span class="ruby-identifier">returning</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">flot</span><span class="ruby-operator">|</span>
+51:       <span class="ruby-identifier">flot</span>.<span class="ruby-identifier">data</span>       <span class="ruby-operator">||=</span> []
+52:       <span class="ruby-identifier">flot</span>.<span class="ruby-identifier">options</span>    <span class="ruby-operator">||=</span> {}
+53:       <span class="ruby-identifier">flot</span>.<span class="ruby-identifier">html_options</span> = <span class="ruby-identifier">html_opts</span>.<span class="ruby-identifier">reverse_merge</span>(<span class="ruby-constant">CANVAS_DEFAULT_HTML_OPTIONS</span>)
+54:       <span class="ruby-identifier">flot</span>.<span class="ruby-identifier">canvas</span>       = <span class="ruby-identifier">canvas</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">canvas</span>
+55:       <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">flot</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+56:     <span class="ruby-keyword kw">end</span>
+57:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">filter</span><span class="method-args">(&amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Setup a <a href="Flot.html#M000003">filter</a> that will be used to limit
+all datasets in the graph.
+</p>
+<p>
+For instance, to limit the graph to positive amounts:
+</p>
+<pre>
+  flot.filter {|collection| collection.select {|record| record.amount &gt; 0 }}
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/flotomatic/lib/flot.rb, line 92</span>
+92:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+93:     <span class="ruby-ivar">@collection_filter</span> = <span class="ruby-identifier">block</span>
+94:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">method_missing</span><span class="method-args">(meth, opts = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Pass other methods through to the javascript flot object.
+</p>
+<p>
+For instance: <tt>flot.grid(:color =&gt; &quot;699&quot;)</tt>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/flotomatic/lib/flot.rb, line 83</span>
+83:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">meth</span>, <span class="ruby-identifier">opts</span> = {})
+84:     <span class="ruby-identifier">merge_options</span> <span class="ruby-identifier">meth</span>, <span class="ruby-identifier">opts</span>
+85:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">series</span><span class="method-args">(label, d, opts = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add a simple <a href="Flot.html#M000005">series</a> to the graph:
+</p>
+<pre>
+  data = [[0,5], [1,5], [2,5]]
+  @flot.series &quot;Horizontal Line&quot;, data
+  @flot.series &quot;Red Line&quot;, data, :color =&gt; '#f00'  # or is it &quot;'#f00'&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/flotomatic/lib/flot.rb, line 113</span>
+113:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">series</span>(<span class="ruby-identifier">label</span>, <span class="ruby-identifier">d</span>, <span class="ruby-identifier">opts</span> = {})
+114:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">blank?</span>
+115:       <span class="ruby-ivar">@data</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:label</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">label</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>)
+116:     <span class="ruby-keyword kw">else</span>
+117:       <span class="ruby-ivar">@data</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:label</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">label</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>)
+118:     <span class="ruby-keyword kw">end</span>
+119:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">series_for</span><span class="method-args">(label, collection, opts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Flot.html#M000005">series</a> based on a collection of
+objects.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  # People by age
+  people = People.all
+  @flot.series_for &quot;Age&quot;, people, :x =&gt; :id, :y =&gt; :age, :options =&gt; {:color =&gt; '#f00'}
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/flotomatic/lib/flot.rb, line 103</span>
+103:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">series_for</span>(<span class="ruby-identifier">label</span>, <span class="ruby-identifier">collection</span>, <span class="ruby-identifier">opts</span>)
+104:     <span class="ruby-identifier">series</span> <span class="ruby-identifier">label</span>, <span class="ruby-identifier">map_collection</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:x</span>], <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:y</span>]), <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:options</span>] <span class="ruby-operator">||</span> {}
+105:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

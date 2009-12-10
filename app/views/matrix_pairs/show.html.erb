@@ -1,0 +1,13 @@
+<p>
+  <b>To:</b>
+  <%=h @matrix_pair.predict_matrix.title %>
+</p>
+
+<p>
+  <b>From:</b>
+  <%=h @matrix_pair.source_matrix.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_matrix_pair_path(@matrix_pair) %> |
+<%= link_to 'Back', matrix_pairs_path %>

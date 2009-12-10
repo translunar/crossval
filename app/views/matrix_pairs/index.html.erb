@@ -1,0 +1,22 @@
+<h1>Listing Matrix Pairings</h1>
+
+<table>
+  <tr>
+    <th>Predict</th>
+    <th>Source</th>
+  </tr>
+
+<% @matrix_pairs.each do |matrix_pair| %>
+  <tr>
+    <td><%=h matrix_pair.predict_matrix.title %></td>
+    <td><%=h matrix_pair.source_matrix.title %></td>
+    <td><%= link_to 'Show', matrix_pair %></td>
+    <td><%= link_to 'Edit', edit_matrix_pair_path(matrix_pair) %></td>
+    <td><%= link_to 'Destroy', matrix_pair, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Matrix Pair', new_matrix_pair_path %>

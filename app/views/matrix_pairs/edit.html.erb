@@ -1,0 +1,20 @@
+<h1>Editing Matrix Pairing</h1>
+
+<% form_for(@matrix_pair) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :to_id %><br />
+    <%= select_matrix f, :to_id %>
+  </p>
+  <p>
+    <%= f.label :from_id %><br />
+    <%= select_matrix f, :from_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @matrix_pair %> |
+<%= link_to 'Back', matrix_pairs_path %>

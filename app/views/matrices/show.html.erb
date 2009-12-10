@@ -1,0 +1,50 @@
+<h1>Information for Matrix "<%= @matrix.title %>" (<%= @matrix.id %>)</h1>
+<ul>
+<%- unless @matrix.parent_id.nil? -%>
+  <li>Parent: <%= @matrix.parent_id %></li>
+  <li>Cardinality: <%= cardinality(@matrix) %></li>
+<%- end -%>
+<%- unless @matrix.children.count == 0 -%>
+  <li>Children: <%= @matrix.list_children %></li>
+<%- end -%>
+  <li>Row Species: <%= @matrix.row_species %></li>
+  <li>Column Species: <%= @matrix.column_species %></li>
+  <li>Created at: <%= @matrix.created_at %></li>
+  <li>Updated at: <%= @matrix.updated_at %></li>
+</ul>
+
+<%#= flot_canvas 'matrix_row_distribution' %>
+
+<%# flot_graph('matrix_row_distribution', @row_distribution) do %>
+  <%#= flot_plot %>
+<%# end %>
+
+<h3>Comments</h3>
+<%= render :partial => 'comments', :object => @matrix.comments %>
+
+<h2>Experiments</h2>
+<%- if @matrix.experiments.count > 0 -%>
+  <ul>
+  <% @matrix.experiments.each do |experiment| %>
+    <li><b><%= experiment.id %></b><ul>
+      <li>Method: <tt><%= experiment.method %></tt></li>
+      <li>Distance: <tt><%= experiment.distance_measure %></tt></li>
+      <li>Source: <%= source_matrices(experiment) %></li>
+      <li>Complete Args: <tt><%= experiment.argument_string %></tt></li>
+      <li>Created: <%= experiment.created_at %></li>
+      <li>Updated: <%= experiment.updated_at %></li>
+      <li>Started: <%= experiment.started_at || run_link(experiment) %></li>
+      <li>Completed: <%= link_to experiment.completed_at || "-", experiment %></li>
+      <li>AUC (mean): <%= experiment.total_auc %></li>
+      <li><h4>Comments</h4><%= render :partial => 'comments', :object => experiment.comments %></li>
+    </ul></li>
+  <% end %>
+  </ul>
+  <%= flot_canvas 'experiment_roc_plot' %>
+
+  <% flot_graph('experiment_roc_plot', @rocs) do %>
+    <%= flot_plot %>
+  <% end %>
+<%- else -%>
+<p><em>None found.</em></p>
+<%- end -%>

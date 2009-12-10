@@ -1,0 +1,12 @@
+<%= flot_canvas 'experiment_roc_plot' %>
+
+<% flot_graph('experiment_roc_plot', @flot) do %>
+  <%= flot_plot %>
+<% end %>
+<br/>
+<br/>
+<table>
+  <% @experiment.roc_line.each do |r| %>
+    <tr><td><%= r[0] %></td><td><%= r[1] %></tr>
+  <% end %>
+</table>

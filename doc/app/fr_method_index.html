@@ -1,0 +1,195 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Methods
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Methods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Methods</h1>
+  <div id="index-entries">
+    <a href="classes/Species.html#M000102"><=> (Species)</a><br />
+    <a href="classes/Species.html#M000101">abbrev_to_value (Species)</a><br />
+    <a href="classes/Experiment.html#M000136">after_save (Experiment)</a><br />
+    <a href="classes/Matrix.html#M000025">after_save (Matrix)</a><br />
+    <a href="classes/Experiment.html#M000157">argument_string (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000156">aucs_bin_path (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000152">aucs_file (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000154">bin_path (Experiment)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000128">bin_path (ExperimentAdapter)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000127">bin_root (ExperimentAdapter)</a><br />
+    <a href="classes/Matrix.html#M000075">build_submatrices! (Matrix)</a><br />
+    <a href="classes/Experiment.html#M000159">calculate_aucs (Experiment)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000130">calculate_aucs_path (ExperimentAdapter)</a><br />
+    <a href="files/app/models/experiment_rb.html#M000006">calculate_average_auc (app/models/experiment.rb)</a><br />
+    <a href="classes/MatrixHelper.html#M000168">cardinality (MatrixHelper)</a><br />
+    <a href="classes/Matrix.html#M000029">cell_file_path (Matrix)</a><br />
+    <a href="classes/EntryInfo.html#M000024">cell_filename (EntryInfo)</a><br />
+    <a href="classes/Matrix.html#M000028">cell_filename (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000030">cells_for_display (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000078">cells_for_display_as_masked (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000079">cells_for_display_as_not_masked (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000054">child_filename (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000062">child_filename_internal (Matrix)</a><br />
+    <a href="classes/MatrixAdapter.html#M000091">child_prefix (MatrixAdapter)</a><br />
+    <a href="classes/Matrix.html#M000056">children_file_paths (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000055">children_filenames (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000035">children_have_been_run? (Matrix)</a><br />
+    <a href="classes/Experiment.html#M000143">column_file_exists? (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000141">column_file_path (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000140">column_filename (Experiment)</a><br />
+    <a href="files/app/models/matrix_rb.html#M000004">combine_all_but_one (app/models/matrix.rb)</a><br />
+    <a href="classes/MatrixAdapter.html#M000099">contents (MatrixAdapter)</a><br />
+    <a href="classes/MatrixAdapter.html#M000098">copy_files_to_dir (MatrixAdapter)</a><br />
+    <a href="classes/MatrixAdapter.html#M000097">copy_inputs_to_experiments (MatrixAdapter)</a><br />
+    <a href="classes/MatrixPairsController.html#M000017">create (MatrixPairsController)</a><br />
+    <a href="classes/Matrix.html#M000039">create_from_file! (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000037">create_from_file_pair! (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000038">create_from_file_pairs! (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000040">create_from_files! (Matrix)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000082">destination_genes (PhenomatrixPairGroup)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000087">destination_genes_without_orthologs (PhenomatrixPairGroup)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000106">destination_matrix (MatrixPairGroup)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000104">destination_matrix_id (MatrixPairGroup)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000083">destination_phenotypes (PhenomatrixPairGroup)</a><br />
+    <a href="classes/MatrixPairsController.html#M000019">destroy (MatrixPairsController)</a><br />
+    <a href="classes/MatrixPairsController.html#M000016">edit (MatrixPairsController)</a><br />
+    <a href="classes/CellValue.html#M000114">entry (CellValue)</a><br />
+    <a href="classes/Experiment.html#M000151">error_log_file (Experiment)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000132">error_log_path (ExperimentAdapter)</a><br />
+    <a href="classes/MatrixAdapter.html#M000092">find_experiment_adapter (MatrixAdapter)</a><br />
+    <a href="classes/EntryInfo.html#M000020">find_or_create! (EntryInfo)</a><br />
+    <a href="classes/Cell.html#M000080">find_or_create! (Cell)</a><br />
+    <a href="classes/Entry.html#M000117">find_or_create! (Entry)</a><br />
+    <a href="classes/Matrix.html#M000076">find_or_create_cell! (Matrix)</a><br />
+    <a href="classes/Entry.html#M000118">find_or_create_empty_row! (Entry)</a><br />
+    <a href="classes/Matrix.html#M000057">fractalize (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000073">fractalize_internal (Matrix)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000085">genes_with_orthologs (PhenomatrixPairGroup)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000086">genes_without_orthologs (PhenomatrixPairGroup)</a><br />
+    <a href="classes/Experiment.html#M000160">has_been_run? (Experiment)</a><br />
+    <a href="classes/Matrix.html#M000036">has_been_run? (Matrix)</a><br />
+    <a href="classes/MatrixPairsController.html#M000013">index (MatrixPairsController)</a><br />
+    <a href="classes/MatricesController.html#M000012">index (MatricesController)</a><br />
+    <a href="files/app/models/matrix_rb.html#M000002">infer_species_from_filename (app/models/matrix.rb)</a><br />
+    <a href="classes/Entry.html#M000123">is_cell? (Entry)</a><br />
+    <a href="classes/Matrix.html#M000051">is_phenomatrix? (Matrix)</a><br />
+    <a href="classes/MatrixPair.html#M000111">is_phenomatrix_pair? (MatrixPair)</a><br />
+    <a href="classes/Entry.html#M000122">is_row? (Entry)</a><br />
+    <a href="classes/Matrix.html#M000058">list_children (Matrix)</a><br />
+    <a href="classes/Experiment.html#M000150">log_file (Experiment)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000131">log_path (ExperimentAdapter)</a><br />
+    <a href="classes/Matrix.html#M000059">make_inputs (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000063">make_inputs_internal (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000074">make_submatrix_title (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000034">mask? (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000072">mask_fractalize_internal (Matrix)</a><br />
+    <a href="classes/CellValue.html#M000113">masked? (CellValue)</a><br />
+    <a href="classes/CellValue.html#M000112">new (CellValue)</a><br />
+    <a href="classes/MatrixPairsController.html#M000015">new (MatrixPairsController)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000103">new (MatrixPairGroup)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000081">new (PhenomatrixPairGroup)</a><br />
+    <a href="classes/Species.html#M000100">new (Species)</a><br />
+    <a href="classes/MatrixAdapter.html#M000088">new (MatrixAdapter)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000124">new (ExperimentAdapter)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000125">new_experiment? (ExperimentAdapter)</a><br />
+    <a href="classes/Matrix.html#M000032">number_of_empty_rows (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000033">number_of_rows (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000031">number_of_unmasked_cells (Matrix)</a><br />
+    <a href="files/app/models/matrix_pair_group_rb.html#M000008">pair_id_list_to_matrix_id_list (app/models/matrix_pair_group.rb)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000107">predict_matrix (MatrixPairGroup)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000105">predict_matrix_id (MatrixPairGroup)</a><br />
+    <a href="classes/MatrixAdapter.html#M000095">prepare_constant_inputs (MatrixAdapter)</a><br />
+    <a href="classes/MatrixAdapter.html#M000094">prepare_constant_inputs_in_dir (MatrixAdapter)</a><br />
+    <a href="classes/MatrixAdapter.html#M000096">prepare_crossval_inputs (MatrixAdapter)</a><br />
+    <a href="classes/Experiment.html#M000138">prepare_dir (Experiment)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000134">prepare_inputs (ExperimentAdapter)</a><br />
+    <a href="classes/Experiment.html#M000137">prepare_inputs (Experiment)</a><br />
+    <a href="classes/MatrixAdapter.html#M000093">prepare_path (MatrixAdapter)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000135">prepare_path (ExperimentAdapter)</a><br />
+    <a href="files/app/models/experiment_rb.html#M000007">read_aucs (app/models/experiment.rb)</a><br />
+    <a href="classes/Matrix.html#M000041">read_entries_from_file! (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000077">read_entries_from_open_file! (Matrix)</a><br />
+    <a href="classes/Experiment.html#M000162">record_timestamps (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000153">results_dir (Experiment)</a><br />
+    <a href="classes/MatrixAdapter.html#M000090">root (MatrixAdapter)</a><br />
+    <a href="classes/MatrixAdapter.html#M000089">root (MatrixAdapter)</a><br />
+    <a href="classes/Matrix.html#M000061">root (Matrix)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000126">root (ExperimentAdapter)</a><br />
+    <a href="classes/Experiment.html#M000146">root (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000145">root_exists? (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000144">row_file_exists? (Experiment)</a><br />
+    <a href="classes/Matrix.html#M000027">row_file_path (Matrix)</a><br />
+    <a href="classes/Experiment.html#M000142">row_file_path (Experiment)</a><br />
+    <a href="classes/EntryInfo.html#M000023">row_filename (EntryInfo)</a><br />
+    <a href="classes/Experiment.html#M000139">row_filename (Experiment)</a><br />
+    <a href="classes/Matrix.html#M000026">row_filename (Matrix)</a><br />
+    <a href="classes/Workers/FrameWorker.html#M000163">run (Workers::FrameWorker)</a><br />
+    <a href="classes/ExperimentsController.html#M000110">run (ExperimentsController)</a><br />
+    <a href="classes/MatricesController.html#M000009">run (MatricesController)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000133">run (ExperimentAdapter)</a><br />
+    <a href="classes/Experiment.html#M000149">run (Experiment)</a><br />
+    <a href="classes/MatrixHelper.html#M000164">run_link (MatrixHelper)</a><br />
+    <a href="classes/MatrixHelper.html#M000167">run_link_if_appropriate (MatrixHelper)</a><br />
+    <a href="classes/Experiment.html#M000161">save_without_timestamping! (Experiment)</a><br />
+    <a href="classes/MatrixPairsHelper.html#M000169">select_matrix (MatrixPairsHelper)</a><br />
+    <a href="classes/MatrixPairsController.html#M000014">show (MatrixPairsController)</a><br />
+    <a href="classes/MatricesController.html#M000010">show (MatricesController)</a><br />
+    <a href="classes/Experiment.html#M000155">sort_bin_path (Experiment)</a><br />
+    <a href="classes/ExperimentAdapter.html#M000129">sort_path (ExperimentAdapter)</a><br />
+    <a href="classes/Experiment.html#M000158">sort_results (Experiment)</a><br />
+    <a href="classes/PhenomatrixPairGroup.html#M000084">source_genes (PhenomatrixPairGroup)</a><br />
+    <a href="classes/MatrixHelper.html#M000166">source_matrices (MatrixHelper)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000109">source_matrices (MatrixPairGroup)</a><br />
+    <a href="classes/MatrixPairGroup.html#M000108">source_matrix_ids (MatrixPairGroup)</a><br />
+    <a href="classes/Experiment.html#M000147">source_species (Experiment)</a><br />
+    <a href="classes/Experiment.html#M000148">source_species_to_s (Experiment)</a><br />
+    <a href="files/app/models/matrix_rb.html#M000003">split_set (app/models/matrix.rb)</a><br />
+    <a href="files/app/models/experiment_rb.html#M000005">time_to_file_suffix (app/models/experiment.rb)</a><br />
+    <a href="classes/EntryInfo.html#M000021">to_s (EntryInfo)</a><br />
+    <a href="classes/Entry.html#M000115">to_s (Entry)</a><br />
+    <a href="classes/Entry.html#M000120">to_s (Entry)</a><br />
+    <a href="classes/Entry.html#M000119">to_s_without_header (Entry)</a><br />
+    <a href="classes/Matrix.html#M000046">uniq_cols (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000045">uniq_columns (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000043">uniq_rows (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000047">unique_cols (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000065">unique_column_sql (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000044">unique_columns (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000064">unique_row_sql (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000042">unique_rows (Matrix)</a><br />
+    <a href="classes/MatrixPairsController.html#M000018">update (MatrixPairsController)</a><br />
+    <a href="classes/MatricesController.html#M000011">view (MatricesController)</a><br />
+    <a href="classes/MatrixHelper.html#M000165">view_matrix_path (MatrixHelper)</a><br />
+    <a href="classes/Matrix.html#M000060">work_root (Matrix)</a><br />
+    <a href="classes/Entry.html#M000121">write (Entry)</a><br />
+    <a href="classes/Entry.html#M000116">write (Entry)</a><br />
+    <a href="classes/EntryInfo.html#M000022">write (EntryInfo)</a><br />
+    <a href="classes/Matrix.html#M000050">write (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000052">write! (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000069">write_as_masked (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000070">write_as_not_masked (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000053">write_children_if_masks (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000071">write_contents (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000066">write_options (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000049">write_rows (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000048">write_rows! (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000068">write_saved (Matrix)</a><br />
+    <a href="classes/Matrix.html#M000067">write_saved_rows (Matrix)</a><br />
+    <a href="files/app/models/matrix_rb.html#M000001">writelines (app/models/matrix.rb)</a><br />
+  </div>
+</div>
+</body>
+</html>
