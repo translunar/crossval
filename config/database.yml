@@ -2,7 +2,7 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
   adapter: postgresql
-  host: localhost
+  host: draco.icmb.utexas.edu
   database: crossval_development
   username: jwoods
   password: youwish1

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :roc_groups
+
   map.resources :aucs
 
   map.resources :matrix_pairs

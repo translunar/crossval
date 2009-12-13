@@ -10,7 +10,7 @@ production:
   listens_on: localhost:15151
 
 development:
-  listens_on: localhost:22122
+  listens_on: localhost:22122, localhost:221223, localhost:221224, localhost:221225, localhost:221226, localhost:221227
   
 test:
   listens_on: localhost:12345
