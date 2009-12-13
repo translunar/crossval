@@ -1,0 +1,20 @@
+<% content_for :head %>
+  <%= javascript_include_tag :defaults %>
+<% end %>
+
+<h1>Editing roc_group</h1>
+
+<% form_for(@roc_group) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @roc_group %> |
+<%= link_to 'Back', roc_groups_path %>

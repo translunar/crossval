@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= flot_includes %>
+<% end %>
+
 <%= flot_canvas 'experiment_roc_plot' %>
 
 <% flot_graph('experiment_roc_plot', @flot) do %>

@@ -1,0 +1,10 @@
+<div class ="item">
+
+  <% fields_for "roc_group[item_attributes][]", item do |item_form| -%>
+    <p>
+      <%= item_form.label :experiment %>
+      <%= select_experiment item_form, :experiment %>
+      <%= link_to_function "remove", "$(this).up('.item').remove()" %>
+    </p>
+  <% end -%>
+</div>

@@ -1,0 +1,12 @@
+<% content_for :head do %>
+  <%= flot_includes %>
+<% end %>
+
+<p>
+  <b>Title:</b>
+  <%=h @roc_group.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_roc_group_path(@roc_group) %> |
+<%= link_to 'Back', roc_groups_path %>

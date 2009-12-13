@@ -7,19 +7,92 @@ class Matrix < ActiveRecord::Base
   has_many :cells, :dependent => :destroy
   has_many :entries, :dependent => :destroy
   has_many :experiments, :foreign_key => :predict_matrix_id
-  has_many :matrix_pairs_as_destination, :foreign_key => :to_id,   :class_name => "MatrixPair"
-  has_many :matrix_pairs_as_source,      :foreign_key => :from_id, :class_name => "MatrixPair"
 
   delegate :row_title, :to => :entry_info
   delegate :column_title, :to => :entry_info
+
+
+  # Make a copy of the matrix (does not include its children).
+  def copy
+    matrix_copy = self.clone
+    matrix_copy.title = self.title + " copy"
+    self.cells.each do |cell|
+      matrix_copy.cells.build(cell.attributes.delete_if { |k,v| k == "matrix_id"})
+    end
+    self.empty_rows.each do |empty_row|
+      matrix_copy.empty_rows.build(empty_row.attributes.delete_if { |k,v| k == "matrix_id"})
+    end
+    matrix_copy
+  end
+
+  def copy_and_save
+    matrix_copy = self.clone
+    matrix_copy.save!
+  end
+
+  def make_empty_copy uqr = nil
+    matrix_copy = self.clone
+    matrix_copy.title = self.title + " copy"
+
+
+    # Get the rows and columns
+    uqr = self.unique_rows if uqr.nil?
+
+    # First create empty rows
+    uqr.each do |row|
+      matrix_copy.empty_rows.build(:i => row)
+    end
+    matrix_copy.row_count    = uqr.size
+    matrix_copy.column_count = 0
+    matrix_copy
+  end
+
+  # Note that this function only works for very sparse matrices. Once columns
+  # start to be dense enough for lots of collisions, this gets exponentially
+  # slower.
+  def copy_and_randomize
+    # Get the rows and columns
+    uqr = self.unique_rows
+
+    # Make an empty copy and to help it along give it the rows (one less db op)
+    matrix_copy = self.make_empty_copy uqr
+    matrix_copy.title = self.title + "r"
+    matrix_copy.column_species = self.column_species + "r"
+
+    # Now we have to save the copy in order to do the randomization.
+    matrix_copy.save!
+
+    # Now go through and
+    self.number_of_rows_by_column.each_pair do |col, num|
+
+      rand_column_contents = Set.new
+      # draw num from uqr for this column
+      while rand_column_contents.size < num
+        rand_column_contents << uqr[rand(uqr.size)]
+      end
+
+      rand_column_contents.each do |row|
+        matrix_copy.find_or_create_cell!(row, col)
+      end
+    end
+
+    # Now save the matrix copy and update the column count
+    matrix_copy.update_column_count!
+    matrix_copy
+  end
 
 
   # Get a hash of the column identifiers to the number of rows that have non-zero
   # values in that column.
   def number_of_rows_by_column
     num_rows_by_column = {}
-    self.columns.each do |col|
-      num_rows_by_column[col] = self.rows(col).size
+    Matrix.connection.select_rows(<<SQL
+SELECT j, COUNT(DISTINCT entries.i) AS count_i FROM matrices
+INNER JOIN entries ON (entries.matrix_id = matrices.id)
+WHERE entries.type = 'Cell' AND matrices.id = #{self.id} GROUP BY j
+SQL
+    ).each do |row|
+      num_rows_by_column[row[0].to_i] = row[1].to_i
     end
     num_rows_by_column
   end
@@ -101,9 +174,9 @@ class Matrix < ActiveRecord::Base
 
   def number_of_rows
     if self.parent_id.nil?
-      self.unique_rows.size
+      self.row_count
     else
-      self.parent.number_of_rows
+      self.parent.row_count
     end
   end
 
@@ -211,17 +284,41 @@ class Matrix < ActiveRecord::Base
 
   # Get a list of unique rows in the matrix.
   def unique_rows
-    Matrix.connection.select_values(self.unique_row_sql)
+    Matrix.connection.select_values(self.unique_row_sql).collect { |x| x.to_i }
   end
   alias :uniq_rows :unique_rows
   
   # Get unique columns in the matrix (identical to unique_rows, but columns instead).
   def unique_columns
-    Matrix.connection.select_values(self.unique_column_sql)
+    Matrix.connection.select_values(self.unique_column_sql).collect { |x| x.to_i }
   end
   alias :uniq_columns :unique_columns
   alias :uniq_cols    :unique_columns
   alias :unique_cols  :unique_columns
+
+  def unique_rows_by_column(which_j)
+    Matrix.connection.select_values(self.unique_vector_sql(:i, which_j)).collect { |x| x.to_i }
+  end
+
+  def count_unique_rows_by_column(which_j)
+    Matrix.connection.select_values(self.unique_vector_sql(:i, which_j, true)).first
+  end
+
+  def unique_columns_by_row(which_i)
+    Matrix.connection.select_values(self.unique_vector_sql(:j, which_i)).collect { |x| x.to_i }
+  end
+
+  def count_unique_rows_by_column(which_i)
+    Matrix.connection.select_values(self.unique_vector_sql(:j, which_i, true)).first
+  end
+
+  def count_unique_columns
+    Matrix.connection.select_values(self.unique_column_sql(true)).first.to_i
+  end
+
+  def count_unique_rows
+    Matrix.connection.select_values(self.unique_row_sql(true)).first.to_i
+  end
 
 
   # Write all row indeces to a file.
@@ -361,17 +458,32 @@ class Matrix < ActiveRecord::Base
     dir_exists?(self.root)
   end
 
-private
+protected
   # Used for returning either row or column of every entry corresponding to this matrix.
-  def unique_entry_value_sql(field)
-    sql = <<SQL
-SELECT DISTINCT "#{field}" FROM #{Matrix.table_name}
+  def unique_entry_value_sql(field, count = false)
+    sql = "SELECT "
+    if count
+      sql << "COUNT(DISTINCT #{Entry.table_name}.#{field}) "
+    else
+      sql << "DISTINCT #{Entry.table_name}.#{field} "
+    end
+    sql << <<SQL
+FROM #{Matrix.table_name}
 INNER JOIN #{Entry.table_name} ON (#{Entry.table_name}.matrix_id = #{Matrix.table_name}.id)
 WHERE #{Matrix.table_name}.id = #{self.id}
 SQL
+    sql
   end
 
-protected
+  #
+  def unique_vector_sql(field, at, count = false)
+    vf = field == "i" ? "j" : "i"
+    sql = self.unique_entry_value_sql(field, count)
+    sql << " AND #{Entry.table_name}.#{vf} = #{at}"
+    sql
+  end
+
+
 
   def child_filename_internal file_prefix, child_matrix
     "#{file_prefix}.#{self.children.count.to_s}-#{child_matrix.cardinality}"
@@ -382,12 +494,12 @@ protected
     self.write(cells_filename)
   end
   
-  def unique_row_sql
-    unique_entry_value_sql("i")
+  def unique_row_sql(count = false)
+    unique_entry_value_sql("i", count)
   end
 
-  def unique_column_sql
-    unique_entry_value_sql("j")
+  def unique_column_sql(count = false)
+    unique_entry_value_sql("j", count)
   end
 
 
@@ -558,6 +670,28 @@ protected
     Cell.find_or_create!(i, j, self.id)
   end
 
+  def create_empty_row!(i)
+    self.empty_rows.create!(:i => i)
+  end
+
+  def update_row_count
+    self.row_count = self.count_unique_rows
+  end
+
+  def update_row_count!
+    self.update_row_count
+    self.save!
+  end
+
+  def update_column_count
+    self.column_count = self.count_unique_columns
+  end
+
+  def update_column_count!
+    self.update_column_count
+    self.save!
+  end
+
 
   # Read a list of cells or rows. If a single entry in a line, it's an empty row
   # (meaning no cells in that row). If two entries, it's a cell with a true value
@@ -569,16 +703,15 @@ protected
 
       if fields.size == 1 # List of rows.
         # Create a row.
-        self.empty_rows.create!(:i => fields[0])
+        self.create_empty_row!(fields[0])
       else
-        STDERR.puts("Cell: #{fields[0]}, #{fields[1]}")
         # Convert a row to a cell (or just create a cell).
         self.find_or_create_cell!(fields[0].to_i, fields[1].to_i)
       end
-      
     end
-    
-    file
+
+    self.update_column_count!
+    self.update_row_count!
   end
 
   def cells_for_display_as_masked(res = {})

@@ -17,7 +17,7 @@ class MatricesController < ApplicationController
     @matrix    = Matrix.find(params[:id])
 
     @rocs      = rocs(@matrix)
-    # @row_distribution = row_distribution(@matrix)
+    @row_distribution = row_distribution(@matrix)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -52,6 +52,18 @@ class MatricesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @matrices }
+    end
+  end
+
+  # DELETE /matrices/1
+  # DELETE /matrices/1.xml
+  def destroy
+    @matrix = Matrix.find(params[:id])
+    @matrix.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(matrices_url) }
+      format.xml  { head :ok }
     end
   end
 

@@ -13,6 +13,5 @@ class Cell < Entry
     end
     
     c = Cell.create!(:i => new_i, :j => new_j, :matrix_id => new_matrix_id) if c.nil?
-    c
   end
 end

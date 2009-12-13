@@ -1,0 +1,20 @@
+<h1>Listing roc_groups</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+  </tr>
+
+<% @roc_groups.each do |roc_group| %>
+  <tr>
+    <td><%=h roc_group.title %></td>
+    <td><%= link_to 'Show', roc_group %></td>
+    <td><%= link_to 'Edit', edit_roc_group_path(roc_group) %></td>
+    <td><%= link_to 'Destroy', roc_group, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New roc_group', new_roc_group_path %>

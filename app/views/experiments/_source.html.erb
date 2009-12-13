@@ -1,0 +1,10 @@
+<div class ="source">
+
+  <% fields_for "experiment[source_attributes][]", source do |source_form| -%>
+    <p>
+      <%= source_form.label :source_matrix %>
+      <%= select_matrix source_form, :source_matrix %>
+      <%= link_to_function "remove", "$(this).up('.source').remove()" %>
+    </p>
+  <% end -%>
+</div>

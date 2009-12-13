@@ -1,13 +1,17 @@
 class Experiment < ActiveRecord::Base
   AVAILABLE_METHODS = {"Naive Bayes (JOW)" => "naivebayes", "Partial Bayes (JOW)" => "partialbayes"}
+  AVAILABLE_DISTANCE_MEASURES = {"Hypergeometric" => "hypergeometric",
+      "Manhattan" => "manhattan",
+      "Euclidean" => "euclidean"}
 
   acts_as_commentable
   belongs_to :predict_matrix, :class_name => "Matrix", :readonly => true
   delegate :column_species, :to => :predict_matrix
   alias :predict_species :column_species
-  has_many :sources
+  has_many :sources, :dependent => :destroy
   has_many :source_matrices, :through => :sources, :foreign_key => :source_matrix_id, :class_name => "Matrix", :readonly => true
   has_many :rocs
+  accepts_nested_attributes_for :sources
 
   named_scope :not_run, :conditions => {:total_auc => nil}
 
@@ -16,9 +20,6 @@ class Experiment < ActiveRecord::Base
     self.argument_string
   end
 
-#  def after_commit
-#    self.prepare_inputs unless self.root_exists? || self.sources.size == 0
-#  end
 
   # Copy input files from each of the source matrices and the predict matrix.
   def prepare_inputs

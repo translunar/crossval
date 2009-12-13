@@ -27,10 +27,21 @@ class ExperimentsController < ApplicationController
   # GET /experiments/new.xml
   def new
     @experiment = Experiment.new
+    @experiment.sources.build
 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @experiment }
+    end
+  end
+
+  def create
+    @experiment = Experiment.new(params[:experiment])
+    if @experiment.save
+      flash[:notice] = "Successfully set up experiment."
+      redirect_to url_for(@experiment.predict_matrix)
+    else
+      render :action => 'new'
     end
   end
 end

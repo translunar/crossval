@@ -6,7 +6,6 @@ class CreateMatrices < ActiveRecord::Migration
       t.integer :cardinality, :default => nil
 
       # For parent matrices
-      t.integer :divisions, :default => nil # DELETE THIS.
       t.string  :row_species, :default => "Hs", :limit => 3, :null => false
       t.string  :column_species, :default => "Hs", :limit => 3, :null => false
       t.integer :row_count, :default => 0
