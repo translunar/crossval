@@ -1,14 +1,11 @@
-<% content_for :head do -%>
-  <%= javascript_include_tag :defaults %>
-<% end -%>
-
-<h1>New experiment</h1>
+<h1>Editing experiment</h1>
 
 <% form_for(@experiment) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Update' %>
   </p>
 <% end %>
 
+<%= link_to 'Show', @experiment %> |
 <%= link_to 'Back', experiments_path %>

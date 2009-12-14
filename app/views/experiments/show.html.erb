@@ -1,16 +1,52 @@
-<% content_for :head do %>
-  <%= flot_includes %>
+<p>
+  <b>Method:</b>
+  <%=h @experiment.method %>
+</p>
+
+<p>
+  <b>Distance measure:</b>
+  <%=h @experiment.distance_measure %>
+</p>
+
+<p>
+  <b>Validation type:</b>
+  <%=h @experiment.validation_type %>
+</p>
+
+<p>
+  <b>K:</b>
+  <%=h @experiment.k %>
+</p>
+
+<p>
+  <b>Arguments:</b>
+  <%=h @experiment.arguments %>
+</p>
+
+<p>
+  <b>Run result:</b>
+  <%=h @experiment.run_result %>
+</p>
+
+<p>
+  <b>Total auc:</b>
+  <%=h @experiment.total_auc %>
+</p>
+
+<p>
+  <b>Started at:</b>
+  <%=h @experiment.started_at %>
+</p>
+
+<p>
+  <b>Completed at:</b>
+  <%=h @experiment.completed_at %>
+</p>
+
+<% @experiment.sources.each do |source| %>
+  <div class="child">
+  </div>
 <% end %>
 
-<%= flot_canvas 'experiment_roc_plot' %>
-
-<% flot_graph('experiment_roc_plot', @flot) do %>
-  <%= flot_plot %>
-<% end %>
-<br/>
-<br/>
-<table>
-  <% @experiment.roc_line.each do |r| %>
-    <tr><td><%= r[0] %></td><td><%= r[1] %></tr>
-  <% end %>
-</table>
+<%= link_to 'Edit', edit_experiment_path(@experiment) %> |
+<%= link_to 'Back', experiments_path %>

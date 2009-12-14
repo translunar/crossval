@@ -1,10 +1,8 @@
-<div class ="source">
-
-  <% fields_for "experiment[source_attributes][]", source do |source_form| -%>
-    <p>
-      <%= source_form.label :source_matrix %>
-      <%= select_matrix source_form, :source_matrix %>
-      <%= link_to_function "remove", "$(this).up('.source').remove()" %>
-    </p>
-  <% end -%>
+<div class="source">
+  <p>
+    <%= f.hidden_field :_delete, :class => 'delete' %>
+    <%= f.label :source_matrix_id %>
+    <%= select_matrix f, :source_matrix_id %>
+    <%= remove_source_link 'remove', f %>
+  </p>
 </div>

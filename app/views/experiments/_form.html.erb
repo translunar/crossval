@@ -1,0 +1,36 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :predict_matrix %><br />
+  <%= select_matrix f, :predict_matrix_id %>
+</p>
+
+<p>
+  <%= f.label :method %><br />
+  <%= select_method f, :method %>
+</p>
+
+<p>
+  <%= f.label :distance_measure %><br />
+  <%= select_distance_measure f, :distance_measure %>
+</p>
+
+<p>
+  <%= f.label :validation_type %><br />
+  <%= select_validation_type f, :validation_type %>
+</p>
+
+<p>
+  <%= f.label :k %><br />
+  <%= f.text_field :k %>
+</p>
+
+<div id='experiment_sources'>
+  <% f.fields_for :sources do |source_form| %>
+    <%= render :partial => 'source', :locals => { :f => source_form } %>
+  <% end %>
+</div>
+
+<p>
+  <%= add_source_link 'Add a Source', 'source', f %>
+</p>

@@ -1,0 +1,36 @@
+<h1>Listing experiments</h1>
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Distance measure</th>
+    <th>Validation type</th>
+    <th>K</th>
+    <th>Arguments</th>
+    <th>Run result</th>
+    <th>Total auc</th>
+    <th>Started at</th>
+    <th>Completed at</th>
+  </tr>
+
+<% @experiments.each do |experiment| %>
+  <tr>
+    <td><%=h experiment.method %></td>
+    <td><%=h experiment.distance_measure %></td>
+    <td><%=h experiment.validation_type %></td>
+    <td><%=h experiment.k %></td>
+    <td><%=h experiment.arguments %></td>
+    <td><%=h experiment.run_result %></td>
+    <td><%=h experiment.total_auc %></td>
+    <td><%=h experiment.started_at %></td>
+    <td><%=h experiment.completed_at %></td>
+    <td><%= link_to 'Show', experiment %></td>
+    <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
+    <td><%= link_to 'Destroy', experiment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New experiment', new_experiment_path %>
