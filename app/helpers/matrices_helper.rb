@@ -44,4 +44,10 @@ module MatricesHelper
       "#{matrix.cardinality+1} / #{matrix.parent.divisions}"
     end
   end
+
+  def link_to_experiment_if_appropriate(experiment)
+    return nil if experiment.total_auc.nil?
+
+    link_to experiment.total_auc, experiment
+  end
 end

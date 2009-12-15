@@ -28,22 +28,39 @@
 
 <h2>Experiments</h2>
 <%- if @matrix.experiments.count > 0 -%>
-  <ul>
+  <table id="matrix_experiments">
+  <tr>
+    <th>ID</th>
+    <th>Method</th>
+    <th>Distance Measure</th>
+    <th>Sources</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Started</th>
+    <th>Completed</th>
+    <th>Exit Code</th>
+    <th>Mean AUC</th>
+  </tr>
   <% @matrix.experiments.find(:all, :order => :completed_at).each do |experiment| %>
-    <li><b><%= experiment.id %></b><ul>
-      <li>Method: <tt><%= experiment.method %></tt></li>
-      <li>Distance: <tt><%= experiment.distance_measure %></tt></li>
-      <li>Source: <%= source_matrices(experiment) %></li>
-      <li>Complete Args: <tt><%= experiment.argument_string %></tt></li>
-      <li>Created: <%= experiment.created_at %></li>
-      <li>Updated: <%= experiment.updated_at %></li>
-      <li>Started: <%= experiment.started_at || run_link(experiment) %></li>
-      <li>Completed: <%= link_to experiment.completed_at || "-", experiment %></li>
-      <li>AUC (mean): <%= experiment.total_auc %></li>
-      <li><h4>Comments</h4><%= render :partial => 'comments', :object => experiment.comments %></li>
-    </ul></li>
+    <tr>
+      <td rowspan="2" class="experiment_id"><%= experiment.id %></td>
+      <td><tt><%= experiment.method %></tt></td>
+      <td><tt><%= experiment.distance_measure %></tt></td>
+      <td><%= source_matrices(experiment) %></td>
+      <td><%= experiment.created_at %></td>
+      <td><%= experiment.updated_at %></td>
+      <td><%= experiment.started_at || run_link(experiment) %></td>
+      <td><%= link_to experiment.completed_at || "-", experiment %></td>
+      <td><%= experiment.run_result %></td>
+      <td><%= link_to_experiment_if_appropriate(experiment) %></td>
+      <!--li><h4>Comments</h4><%#= render :partial => 'comments', :object => experiment.comments %></li-->
+    </tr>
+    <tr>
+      <td colspan="9" class="experiment_argument_string"><tt><%= experiment.argument_string %></tt></td>
+    </tr>
   <% end %>
-  </ul>
+  </table>
+  <br/>
   <%= flot_canvas 'experiment_roc_plot' %>
 
   <% flot_graph('experiment_roc_plot', @rocs) do %>

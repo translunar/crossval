@@ -1,52 +1,23 @@
-<p>
-  <b>Method:</b>
-  <%=h @experiment.method %>
-</p>
-
-<p>
-  <b>Distance measure:</b>
-  <%=h @experiment.distance_measure %>
-</p>
-
-<p>
-  <b>Validation type:</b>
-  <%=h @experiment.validation_type %>
-</p>
-
-<p>
-  <b>K:</b>
-  <%=h @experiment.k %>
-</p>
-
-<p>
-  <b>Arguments:</b>
-  <%=h @experiment.arguments %>
-</p>
-
-<p>
-  <b>Run result:</b>
-  <%=h @experiment.run_result %>
-</p>
-
-<p>
-  <b>Total auc:</b>
-  <%=h @experiment.total_auc %>
-</p>
-
-<p>
-  <b>Started at:</b>
-  <%=h @experiment.started_at %>
-</p>
-
-<p>
-  <b>Completed at:</b>
-  <%=h @experiment.completed_at %>
-</p>
-
-<% @experiment.sources.each do |source| %>
-  <div class="child">
-  </div>
-<% end %>
-
 <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
 <%= link_to 'Back', experiments_path %>
+
+<table id="experiment_rocs">
+  <tr>
+    <th><%= @experiment.predict_matrix.column_title %></th>
+    <th>AUC</th>
+    <th>TP</th>
+    <th>FP</th>
+    <th>TN</th>
+    <th>FN</th>
+  </tr>
+<%- @experiment.rocs.each do |roc| -%>
+  <tr>
+    <td><%= roc.column %></td>
+    <td><%= roc.auc %></td>
+    <td><%= roc.true_positives %></td>
+    <td><%= roc.false_positives %></td>
+    <td><%= roc.true_negatives %></td>
+    <td><%= roc.false_negatives %></td>
+  </tr>
+<%- end -%>
+</table>

@@ -137,8 +137,10 @@ class Experiment < ActiveRecord::Base
     if self.run_result == 0
       self.sort_results
 
+      STDERR.puts("Calling calculate_rocs!")
       # Calculating the AUCs also marks the task as completed and saves the record.
       self.calculate_rocs!
+      STDERR.puts("Done calling calculate_rocs!")
     else
       logger.error("Execution error for binary. Returned: #{self.run_result}")
     end
@@ -223,14 +225,19 @@ class Experiment < ActiveRecord::Base
 
   def calculate_rocs!
     aucs = []
+    STDERR.puts("Calling Roc.calculate")
     Roc.calculate(self.id, self.results_path).each do |roc|
+      STDERR.puts("Calling roc.save!")
       roc.save!
+      STDERR.puts("Done calling roc.save!")
       aucs << roc.auc
     end
 
     self.total_auc = mean aucs
     self.completed_at = Time.now
+    STDERR.puts("Calling save_without_timestamping!")
     self.save_without_timestamping!
+    STDERR.puts("Done calling save_without_timestamping!")
   end
 
   def calculate_aucs_old
