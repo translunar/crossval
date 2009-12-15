@@ -1,19 +1,11 @@
-<% content_for :head %>
+<% content_for :head do %>
   <%= javascript_include_tag :defaults %>
 <% end %>
 
-<h1>Editing roc_group</h1>
+<h1>Edit ROC Aggregation</h1>
 
 <% form_for(@roc_group) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+  <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
 
 <%= link_to 'Show', @roc_group %> |

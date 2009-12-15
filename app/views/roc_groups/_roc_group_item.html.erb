@@ -1,0 +1,8 @@
+<div class ="roc_group_item">
+  <p>
+    <%= f.hidden_field :_delete, :class => 'delete' %>
+    <%= f.label :experiment %>
+    <%= select_experiment f, :experiment_id %>
+    <%= remove_nested_link 'remove', 'roc_group_item', f %>
+  </p>
+</div>

@@ -1,0 +1,18 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :title %><br />
+  <%= f.text_field :title %>
+</p>
+<div id="roc_group_items">
+  <% f.fields_for :roc_group_items do |roc_group_item_form| %>
+    <%= render :partial => 'roc_group_item', :locals => { :f => roc_group_item_form } %>
+  <% end %>
+</div>
+<p>
+  <%= add_nested_link('Add an item', 'roc_group_items', 'roc_group_item', f) %>
+</p>
+
+<p>
+  <%= f.submit 'Create' %>
+</p>

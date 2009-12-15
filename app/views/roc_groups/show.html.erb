@@ -7,6 +7,12 @@
   <%=h @roc_group.title %>
 </p>
 
+<%= flot_canvas 'experiment_roc_plot' %>
+
+<% flot_graph('experiment_roc_plot', @rocs) do %>
+  <%= flot_plot %>
+<% end %>
+
 
 <%= link_to 'Edit', edit_roc_group_path(@roc_group) %> |
 <%= link_to 'Back', roc_groups_path %>
