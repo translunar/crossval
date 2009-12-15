@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :experiments
+
+  map.resources :experiments
+
+  map.resources :experiments
+
   map.resources :roc_groups
 
   map.resources :aucs

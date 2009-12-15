@@ -15,6 +15,8 @@ class RocGroupsController < ApplicationController
   def show
     @roc_group = RocGroup.find(params[:id])
 
+    @rocs = rocs(@roc_group)
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @roc_group }
@@ -25,7 +27,7 @@ class RocGroupsController < ApplicationController
   # GET /roc_groups/new.xml
   def new
     @roc_group = RocGroup.new
-    @roc_group.items.build
+    @roc_group.roc_group_items.build
 
     respond_to do |format|
       format.html # new.html.erb

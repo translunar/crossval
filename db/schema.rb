@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091205014458) do
+ActiveRecord::Schema.define(:version => 20091210220002) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -43,13 +43,15 @@ ActiveRecord::Schema.define(:version => 20091205014458) do
     t.integer  "predict_matrix_id",                                              :null => false
     t.string   "method",            :limit => 200, :default => "naivebayes",     :null => false
     t.string   "distance_measure",  :limit => 200, :default => "hypergeometric", :null => false
+    t.string   "validation_type",                  :default => "row",            :null => false
+    t.integer  "k",                                :default => 1
     t.string   "arguments",         :limit => 200, :default => "-k 1"
+    t.integer  "run_result"
     t.decimal  "total_auc"
     t.datetime "started_at"
     t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "run_result"
   end
 
   add_index "experiments", ["predict_matrix_id"], :name => "index_experiments_on_predict_matrix_id"
@@ -57,26 +59,33 @@ ActiveRecord::Schema.define(:version => 20091205014458) do
   create_table "matrices", :force => true do |t|
     t.integer  "parent_id"
     t.integer  "cardinality"
-    t.integer  "divisions"
-    t.string   "title",          :limit => 300,                    :null => false
-    t.integer  "entry_info_id",                                    :null => false
-    t.string   "row_species",    :limit => 3,   :default => "Hs",  :null => false
+    t.string   "row_species",    :limit => 3,   :default => "Hs", :null => false
+    t.string   "column_species", :limit => 3,   :default => "Hs", :null => false
+    t.integer  "row_count",                     :default => 0
+    t.integer  "column_count",                  :default => 0
+    t.string   "title",          :limit => 300,                   :null => false
+    t.integer  "entry_info_id",                                   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "randomized",                    :default => false, :null => false
-    t.string   "column_species", :limit => 3,   :default => "Hs",  :null => false
   end
 
   add_index "matrices", ["parent_id", "cardinality"], :name => "index_matrices_on_parent_id_and_cardinality", :unique => true
 
-  create_table "matrix_pairs", :force => true do |t|
-    t.integer  "to_id",      :null => false
-    t.integer  "from_id",    :null => false
+  create_table "roc_group_items", :force => true do |t|
+    t.integer  "roc_group_id",  :null => false
+    t.integer  "experiment_id", :null => false
+    t.string   "legend"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "matrix_pairs", ["to_id", "from_id"], :name => "index_matrix_pairs_on_to_id_and_from_id", :unique => true
+  add_index "roc_group_items", ["roc_group_id"], :name => "index_roc_group_items_on_roc_group_id"
+
+  create_table "roc_groups", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rocs", :force => true do |t|
     t.integer "experiment_id",   :null => false

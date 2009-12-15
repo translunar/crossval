@@ -11,7 +11,7 @@ class Experiment < ActiveRecord::Base
   has_many :sources, :dependent => :destroy
   has_many :source_matrices, :through => :sources, :foreign_key => :source_matrix_id, :class_name => "Matrix", :readonly => true
   has_many :rocs
-  accepts_nested_attributes_for :sources
+  accepts_nested_attributes_for :sources, :allow_destroy => true
 
   named_scope :not_run, :conditions => {:total_auc => nil}
 
@@ -22,6 +22,7 @@ class Experiment < ActiveRecord::Base
 
 
   # Copy input files from each of the source matrices and the predict matrix.
+  # Does nothing if the experiment directory already exists.
   def prepare_inputs
     unless self.root_exists?
       logger.info("Preparing new inputs for experiment #{self.id}")
@@ -199,7 +200,7 @@ class Experiment < ActiveRecord::Base
   end
 
   def bin_path
-    Rails.root + "bin/phenomatrix"
+    Rails.root + "bin/#{Socket.gethostname}/phenomatrix"
   end
 
   def sort_bin_path
@@ -211,9 +212,7 @@ class Experiment < ActiveRecord::Base
   end
 
   def argument_string
-    str = "-m #{self.read_attribute(:method)} -d #{self.distance_measure} -n #{self.predict_matrix.children.count} -S #{self.predict_species} -s #{self.source_species_to_s} -t #{self.validation_type} -k #{self.k} "
-    str << self.arguments
-    str
+    "-m #{self.read_attribute(:method)} -d #{self.distance_measure} -n #{self.predict_matrix.children.count} -S #{self.predict_species} -s #{self.source_species_to_s} -t #{self.validation_type} -k #{self.k} #{self.arguments} "
   end
 
   def sort_results

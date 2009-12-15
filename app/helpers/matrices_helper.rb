@@ -22,11 +22,15 @@ module MatricesHelper
     end
   end
 
+  def fractional_density(matrix)
+    "<sup>#{matrix.density}</sup><i>/</i><sub>#{matrix.number_of_rows}</sub>"
+  end
+
   # Display the link to run experiments for a matrix iff it's possible to run for
   # that matrix.
   def run_link_if_appropriate(matrix)
     # Only allow running of parent if its children have been run.
-    if !matrix.mask? && (!matrix.parent.nil? || (matrix.parent.nil? && matrix.children_have_been_run?))
+    if matrix.has_experiments_to_run?
       run_link(matrix)
     else
       nil

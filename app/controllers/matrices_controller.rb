@@ -1,8 +1,9 @@
 class MatricesController < ApplicationController
 
   def run
+   
     @matrix = Matrix.find(params[:id])
-    @matrix.experiments.each do |experiment|
+    @matrix.experiments.not_run.each do |experiment|
       Workers::FrameWorker.async_run(:experiment_id => experiment.id)
     end
 
@@ -17,7 +18,7 @@ class MatricesController < ApplicationController
     @matrix    = Matrix.find(params[:id])
 
     @rocs      = rocs(@matrix)
-    @row_distribution = row_distribution(@matrix)
+    #@row_distribution = row_distribution(@matrix)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -68,17 +69,6 @@ class MatricesController < ApplicationController
   end
 
 protected
-  def rocs matrix
-    Flot.new('experiment_roc_plot') do |f|
-      #f.yaxis :min => 0, :max => 1
-      f.points
-      f.legend :position => "se"
-      f.yaxis 1
-      matrix.experiments.each do |experiment|
-        f.series experiment.title, experiment.roc_line
-      end
-    end
-  end
 
   def row_distribution matrix
     Flot.new('matrix_row_distribution') do |f|

@@ -6,7 +6,7 @@ class CreateExperiments < ActiveRecord::Migration
       t.string :distance_measure, :null => false, :limit => 200, :default => "hypergeometric"
       t.string :validation_type, :default => "row", :null => false
       t.integer :k, :default => 1
-      t.string :arguments, :limit => 200, :default => "-k 1" # Beyond :method and :distance_measure
+      t.string :arguments, :limit => 200 # Beyond :method and :distance_measure
 
       # These are only used when experiments/analyses are run.
       t.integer :run_result # Gives the result of a call to the shell.

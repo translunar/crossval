@@ -17,11 +17,11 @@
   <li>Updated at: <%= @matrix.updated_at %></li>
 </ul>
 
-<%= flot_canvas 'matrix_row_distribution' %>
+<%#= flot_canvas 'matrix_row_distribution' %>
 
-<% flot_graph('matrix_row_distribution', @row_distribution) do %>
-  <%= flot_plot %>
-<% end %>
+<%# flot_graph('matrix_row_distribution', @row_distribution) do %>
+  <%#= flot_plot %>
+<%# end %>
 
 <h3>Comments</h3>
 <%= render :partial => 'comments', :object => @matrix.comments %>
@@ -29,7 +29,7 @@
 <h2>Experiments</h2>
 <%- if @matrix.experiments.count > 0 -%>
   <ul>
-  <% @matrix.experiments.each do |experiment| %>
+  <% @matrix.experiments.find(:all, :order => :completed_at).each do |experiment| %>
     <li><b><%= experiment.id %></b><ul>
       <li>Method: <tt><%= experiment.method %></tt></li>
       <li>Distance: <tt><%= experiment.distance_measure %></tt></li>

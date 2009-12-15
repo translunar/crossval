@@ -3,10 +3,6 @@ class Roc < ActiveRecord::Base
 
   delegate :predict_matrix, :predict_matrix_id, :to => :experiment
 
-  def before_save
-    self.auc = 0.0 if self.auc.nan?
-  end
-
   # Calculates the ROC statistics for each column of the results for a given experiment.
   # Takes the experiment as an argument
   def self.calculate(experiment_id, results_path)
@@ -41,6 +37,7 @@ class Roc < ActiveRecord::Base
     # Do not use the roc_obj function to do this, as it computes the values differently.
     @roc_obj             = Statistics::ROC.new(:known_correct => known_rows, :guess_to_priority_hash => row_to_distance)
     self.auc             = @roc_obj.area_under_curve
+    self.auc             = 0.0 if self.auc.nan?
     self.true_positives  = @roc_obj.true_positives
     self.true_negatives  = @roc_obj.true_negatives
     self.false_positives = @roc_obj.false_positives

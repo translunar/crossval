@@ -81,6 +81,13 @@ class Matrix < ActiveRecord::Base
     matrix_copy
   end
 
+  # Gives a metric describing the number of cells in the matrix as a fraction of
+  # the size -- in terms of the number of cells per column.
+  def density
+    cc = self.column_count
+    cc = self.parent.column_count if cc == 0
+    (self.number_of_unmasked_cells / cc.to_f).round
+  end
 
   # Get a hash of the column identifiers to the number of rows that have non-zero
   # values in that column.
@@ -128,6 +135,19 @@ SQL
     end
   end
 
+  # Prepare working directory for all matrices and their experiments.
+  def self.prepare_inputs
+    Matrix.all.each do |m|
+      m.prepare_inputs unless m.mask?
+    end
+
+    # Only create experiments after matrices have been created
+    Matrix.all.each do |m|
+      m.experiments.each { |exp| exp.prepare_inputs } unless m.mask?
+    end
+  end
+
+  # Prepare working directory for the matrix
   def prepare_inputs
     self.make_inputs(self.row_filename, self.cell_filename) unless self.root_exists?
   end
@@ -364,7 +384,7 @@ SQL
   end
 
   def write_children_if_masks file_prefix
-    if self.children.first.mask?
+    if !self.children.first.nil? && self.children.first.mask?
       self.children.each do |child|
         Dir.chdir(self.root) do
           child.write( self.child_filename_internal(file_prefix, child), :force_not_masked => true )
@@ -390,6 +410,10 @@ SQL
 
   def children_file_paths file_prefix
     self.children_filenames(file_prefix).collect { |x| self.root + x }
+  end
+
+  def has_experiments_to_run?
+    self.experiments.not_run.count > 0
   end
 
   

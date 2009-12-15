@@ -7,6 +7,12 @@ function add_source(element, source_name, new_source) {
   });
 }
 
+function add_nested(element, nested_type, new_nested) {
+  $(nested_type).insert({
+    bottom: new_nested.replace(/NEW_RECORD/g, new Date().getTime())
+  });
+}
+
 function remove_source(element) {
   var hidden_field = $(element).previous("input[type=hidden]");
   if (hidden_field) {
@@ -14,3 +20,12 @@ function remove_source(element) {
   }
   $(element).up(".source").hide();
 }
+
+function remove_roc_group_item(element) {
+  var hidden_field = $(element).previous("input[type=hidden]");
+  if (hidden_field) {
+    hidden_field.value = '1';
+  }
+  $(element).up(".roc_group_item").hide();
+}
+

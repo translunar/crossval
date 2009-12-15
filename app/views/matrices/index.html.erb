@@ -5,13 +5,23 @@
     <th colspan="2">Columns</th>
     <th colspan="2">Rows</th>
     <th>Cells</th>
+    <th>Density</th>
     <th colspan="2">Experiments</th>
     <th/>
     <th/>
     <th/>
     <th/>
   </tr>
-  <tr><th>Species</th><th>Total</th><th>Species</th><th>Total</th><th>Total</th><th>New</th><th>Total</th></tr>
+  <tr>
+    <th>Species</th>
+    <th>Total</th>
+    <th>Species</th>
+    <th>Total</th>
+    <th>Total</th>
+    <th>cells/column</th>
+    <th>New</th>
+    <th>Total</th>
+  </tr>
 
 <% @matrices.each do |matrix| %>
   <tr>
@@ -21,6 +31,7 @@
     <td><%= h matrix.row_species %></td>
     <td><%= matrix.number_of_rows %></td>
     <td><%= matrix.number_of_unmasked_cells %></td>
+    <td><%= fractional_density(matrix) %></td>
     <td><%= matrix.experiments.not_run.count %></td>
     <td><%= matrix.experiments.count %></td>
     <td><%= run_link_if_appropriate(matrix) %></td>
